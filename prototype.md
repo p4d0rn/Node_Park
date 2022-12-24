@@ -266,7 +266,7 @@ Foo.call(o);
 
 # 0x05 原型总结
 
-![image-20221224225153475](.\.gitbook\assets\image-20221224225153475.png)
+![image-20221224225153475](./.gitbook/assets/image-20221224225153475.png)
 
 1. 牢记两点：
    ①`__proto__`和`constructor`属性是**对象**所独有的；
@@ -289,7 +289,7 @@ object2 = {"c":1, "d":2};
 console.log(object2.foo);
 ```
 
-![image-20221224225239156](.\.gitbook\assets\image-20221224225239156.png)
+![image-20221224225239156](./.gitbook/assets/image-20221224225239156.png)
 
 由于object2和object1都继承了Object.prototype，在获取object2.foo时，由于object2本身不存在foo属性，就会往父类Object.prototype中去寻找。这就造成了一个原型链污染。
 
