@@ -32,7 +32,7 @@ Node.js中的child_process.exec调用的是/bash.sh，它是一个bash解释器�
 对于Function来说上下文并不存在require，需要从global中一路调出来exec。若上下文没有require，可以使用`Function("global.process.mainModule.constructor._load('child_process').exec('calc')")();`
 或`Function("global.process.mainModule.require('child_process').exec('calc')")();`
 
-![image-20221224225516768](E:\MyBook\Node_Park\.gitbook\assets\image-20221224225516768.png)
+![image-20221224225516768](.\.gitbook\assets\image-20221224225516768.png)
 
 其他函数：
 
