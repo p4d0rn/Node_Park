@@ -26,7 +26,7 @@ vm模块的作用类似，我们可以通过传字符串进去执行代码，而
 
 在Node中作用域也称为上下文。写过Node的都知道，我们一般需要在文件里面`require`其他js文件，这些文件称为包。每个包都有自己的上下文，且包之间的作用域互相隔离，若要调用其他包中的变量和函数，首先需要`require`这个包，然后这个包需要`exports`对外的对象。
 
-![image-20221224224514974](./.gitbook/assets/image-20221224224514974.png)
+![image-20221224224514974](../.gitbook/assets/image-20221224224514974.png)
 
 global是NodeJS中的全局变量，如同window是JavaScript的全局对象
 
@@ -52,7 +52,7 @@ global是NodeJS中的全局变量，如同window是JavaScript的全局对象
   -  `vm.createContext([sandbox])`：在当前global外创建一个作用域，此时这个沙箱对象就是这个作用域的全局对象，沙箱内部无法访问global中的属性
   - `vm.runInContext(code, contextifiedSandbox)`：参数为要执行的代码和创建完作用域的沙箱对象。
 
-  ![image-20221224224546705](./.gitbook/assets/image-20221224224546705.png)
+  ![image-20221224224546705](../.gitbook/assets/image-20221224224546705.png)
 
 ```javascript
 const vm = require('vm');
@@ -278,10 +278,10 @@ try{
 
 vm2会代理与初始化沙箱内对象，如果此时这个对象是下面类型，则会执行Decontextify.instance()函数。
 
-![image-20221224224834943](./.gitbook/assets/image-20221224224834943.png)
+![image-20221224224834943](../.gitbook/assets/image-20221224224834943.png)
 
 这个函数中，用到了一个全局对象Symbol，我们劫持这个对象的getter()方法。这样，vm2在执行到Decontextify.instance()函数会抛出异常，因为这个异常是在沙箱外的代码抛出的，我们在沙箱内拿到的异常对象e，这就是一个外部变量。
 
-![image-20221224224858308](./.gitbook/assets/image-20221224224858308.png)
+![image-20221224224858308](../.gitbook/assets/image-20221224224858308.png)
 
 POC中劫持了Symbol.toStringTag的getter，并在这个getter函数中抛出异常，这个“异常”是一个回调函数。然后我们在catch中捕捉这个函数，即可拿到沙箱外部的process对象。
