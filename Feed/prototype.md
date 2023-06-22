@@ -2,7 +2,7 @@
 
 不同于基于类的语言(Java、C++)，js作为动态语言，是基于原型的。
 
-在JavaScript中，万物皆对象。每个实例对象（object）都有一个私有属性（**__proto__**）指向它的构造函数（**constructor**）的原型对象（**prototype**）。该原型对象也有一个自己的原型对象（**__proto__**），层层向上直到一个对象的原型对象为`null`。`null`没有原型，作为原型链中的最后一个环节。
+在JavaScript中，万物皆对象。每个实例对象（object）都有一个私有属性（`__proto__`）指向它的构造函数（**constructor**）的原型对象（**prototype**）。该原型对象也有一个自己的原型对象（`__proto__`），层层向上直到一个对象的原型对象为`null`。`null`没有原型，作为原型链中的最后一个环节。
 
 # 0x02 基于原型链的继承
 
@@ -140,10 +140,9 @@ console.log( doSomeInstancing );
 }
 ```
 
-`doSomeInstancing`.`__proto__`即`doSomething`.`prototype`默认情况下，任何函数的原型属性 
+`doSomeInstancing`.`__proto__`即`doSomething`.`prototype`默认情况下，任何函数的原型属性`__proto__`都是 `window.Object.prototype`
 
 ```
-__proto__`都是 `window.Object.prototype
 function doSomething(){}
 doSomething.prototype.foo = "bar";
 var doSomeInstancing = new doSomething();
@@ -277,7 +276,7 @@ Foo.call(o);
 
 原理：
 
-对于语句：object[a][b]=value，若a、b、value可控，将a设置为__proto__，可以给object对象的原型设置一个b属性，值为value，这样所有继承object对象原型的实例对象在本身不拥有b属性的情况下，都会拥有b属性。**如果能够控制并修改一个对象的原型，就可以影响到所有和这个对象同一个原型的对象。**
+对于语句：`object[a][b]=value`，若a、b、value可控，将a设置为`__proto__`，可以给object对象的原型设置一个b属性，值为value，这样所有继承object对象原型的实例对象在本身不拥有b属性的情况下，都会拥有b属性。如果能够控制并修改一个对象的原型，就可以影响到所有和这个对象同一个原型的对象。
 
 ```javascript
 object1 = {"a":1, "b":2};
@@ -287,7 +286,7 @@ object2 = {"c":1, "d":2};
 console.log(object2.foo);
 ```
 
-![image-20221224225239156](./.gitbook/assets/image-20221224225239156.png)
+![image-20221224225239156](../.gitbook/assets/image-20221224225239156.png)
 
 由于object2和object1都继承了Object.prototype，在获取object2.foo时，由于object2本身不存在foo属性，就会往父类Object.prototype中去寻找。这就造成了一个原型链污染。
 
@@ -316,7 +315,9 @@ function copy(object1, object2){
             object1[key] = object2[key]
         }
     }
-  }
+}
 ```
 
 POST： `{"__proto__":{"key":"666"}}`
+
+若题目禁了`__proto__`，可以使用`constructor.prototype`
