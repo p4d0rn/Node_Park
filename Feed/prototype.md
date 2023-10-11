@@ -321,3 +321,8 @@ function copy(object1, object2){
 POST： `{"__proto__":{"key":"666"}}`
 
 若题目禁了`__proto__`，可以使用`constructor.prototype`
+
+# 0x07 修复
+
+* 黑名单`__proto__`、`constructor`、`prototype`
+* 复制对象时，传进的空对象不继承Object原型，使用如`Object.create(null)`来创建
